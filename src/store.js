@@ -1,42 +1,35 @@
 import { createStore } from "vuex";
+import supabase from "./utils/client";
 
 export default createStore({
   state() {
     return {
-      todos: [
-        {
-          id: 1927,
-          user_id: 3870,
-          title: "Umbra conscendo videlicet cognomen sit.",
-          due_on: "2022-05-28T00:00:00.000+05:30",
-          status: "completed",
-        },
-      ],
+      todos: [],
     };
   },
+
   mutations: {
     addTask(state, payload) {
       state.todos.push(payload);
     },
   },
+
   actions: {
-    async addTodo(context, todo) {
-      const data = JSON.stringify(todo);
-      console.log(data);
-      const url = "https://gorest.co.in/public/v2/users/100/todos";
-      try {
-        const rawResponse = await fetch(url, {
-          method: "POST",
-          headers: {
-            authorization:
-              "Bearer d699237ed3e9ce06e30353c96b6496d14f65cce7d86624aafae79f070fddbe06",
-          },
-          body: data,
-        });
-        const content = await rawResponse.json();
+    async getAllTodos(context) {
+      let { data: todos, error } = await supabase
+        .from("todo")
+        .select("*")
+        .order("id");
+      todos.forEach((todo) => {
         context.commit("addTask", todo);
-      } catch (err) {
-        console.log(err);
+      });
+    },
+
+    async addTodo(context, todo) {
+      const { data, error } = await supabase.from("todo").insert(todo).single();
+      context.commit("addTask", data);
+      if (error) {
+        console.log(error);
       }
     },
   },
