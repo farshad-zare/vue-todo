@@ -18,57 +18,72 @@ export default createStore({
       state.todos = tasks;
     },
 
-    toggleTaskStatus(state, id) {
-      const taskID = state.todos.findIndex((todo) => todo.id === id);
-      state.todos[taskID].completed = !state.todos[taskID].completed;
+    toggleTaskStatus(state, payload) {
+      state.todos[payload.id].completed = payload.value;
     },
   },
 
   actions: {
-    async getAllTodos(context) {
-      let { data: todos, error } = await supabase
+    async getAllTodos({ commit }) {
+      const { data: todos } = await supabase
         .from("todo")
         .select("*")
         .order("id");
+
       todos.forEach((todo) => {
-        context.commit("addTask", todo);
+        commit("addTask", todo);
       });
     },
 
-    async addTodo(context, todo) {
-      const { data, error } = await supabase.from("todo").insert(todo).single();
-      context.commit("addTask", data);
-      if (error) {
+    async addTodo({ commit }, todo) {
+      commit("addTask", todo);
+
+      try {
+        const { error } = await supabase.from("todo").insert(todo).single();
+        if (error) {
+          throw error.message;
+        }
+      } catch (error) {
+        console.log(error);
+        commit("removeTask", todo.id);
+      }
+    },
+
+    async deleteTodo({ commit }, payload) {
+      commit("removeTask", payload.id);
+
+      try {
+        const { error } = await supabase
+          .from("todo")
+          .delete()
+          .eq("id", payload.id);
+        if (error) {
+          throw error.message;
+        }
+      } catch (error) {
+        commit("addTask", payload);
         console.log(error);
       }
     },
 
-    async deleteTodo(context, id) {
-      try {
-        const  data  = await supabase.from("todo").delete().eq("id", id);
-        console.log(data);
-        context.commit("removeTask", id);
-      } catch (error) {
-        console.error("error", error);
-      }
-    },
-
-    async toggleTodoStatus({ state, commit }, id) {
-      const taskID = state.todos.findIndex((todo) => todo.id === id);
-      console.log(id);
-      console.log(state.todos[taskID]);
+    async toggleTodoStatus({ state, commit }, payload) {
+      const taskID = state.todos.findIndex((todo) => todo.id === payload.id);
       const newVal = !state.todos[taskID].completed;
 
-      const { error } = await supabase
-        .from("todo")
-        .update({ completed: newVal })
-        .eq("id", id)
-        .single();
-      commit("toggleTaskStatus", id);
-      if (error) {
-        alert(error.message);
-        console.error("There was an error updating", error);
-        return;
+      commit("toggleTaskStatus", { id: taskID, value: newVal });
+
+      try {
+        const { error } = await supabase
+          .from("todo")
+          .update({ completed: newVal })
+          .eq("id", payload.id)
+          .single();
+        if (error) {
+          throw error.message;
+        }
+      } catch (error) {
+        commit("toggleTaskStatus", payload.id);
+        console.log(error);
       }
     },
   },

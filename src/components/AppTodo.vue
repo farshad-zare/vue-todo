@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>{{ todo.title }}</h2>
-    <button @click="emits('removetodo', todo.id)">Remove</button>
-    <button @click="emits('toggletodo', todo.id)">Toggle</button>
+    <h2 :class="{ completed: todo.completed }">{{ todo.title }}</h2>
+    <button @click="emits('removetodo', todo)">Remove</button>
+    <button @click="emits('toggletodo', todo)">Toggle</button>
     <br />
   </div>
 </template>
@@ -18,5 +18,9 @@
   div {
     border: 1px solid red;
     margin: 5px;
+  }
+
+  .completed {
+    color: green;
   }
 </style>
