@@ -8,12 +8,16 @@ specifiers:
   eslint: ^8.5.0
   eslint-plugin-vue: ^8.2.0
   prettier: ^2.5.1
+  primeicons: ^5.0.0
+  primevue: ^3.12.6
   vite: ^2.9.5
   vue: ^3.2.33
   vuex: ^4.0.2
 
 dependencies:
   '@supabase/supabase-js': 1.35.3
+  primeicons: 5.0.0
+  primevue: 3.12.6_primeicons@5.0.0+vue@3.2.33
   vue: 3.2.33
   vuex: 4.0.2_vue@3.2.33
 
@@ -1100,6 +1104,20 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
+
+  /primeicons/5.0.0:
+    resolution: {integrity: sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==}
+    dev: false
+
+  /primevue/3.12.6_primeicons@5.0.0+vue@3.2.33:
+    resolution: {integrity: sha512-gyO1+063+JwMvcuc+F2BrIL1TWL0y3xJgLAhgKUxqMlZLLoRUF4EzOBSKnzKfr+W+33YTsh6veysZ8iQAt13xg==}
+    peerDependencies:
+      primeicons: ^5.0.0
+      vue: ^3.0.0
+    dependencies:
+      primeicons: 5.0.0
+      vue: 3.2.33
+    dev: false
 
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}

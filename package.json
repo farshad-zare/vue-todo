@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.3",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.12.6",
     "vue": "^3.2.33",
     "vuex": "^4.0.2"
   },

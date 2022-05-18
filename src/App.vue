@@ -10,6 +10,7 @@
       :todo="todo"
     />
   </section>
+  <Button label="Warning" class="p-button-outlined p-button-warning" />
 </template>
 
 <script setup>
@@ -17,6 +18,8 @@
   import { onBeforeMount, computed } from "vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
+  import Button from "primevue/button";
+  import "primevue/resources/themes/tailwind-light/theme.css";
 
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
@@ -34,6 +37,6 @@
   }
 
   function handreMoveTodo(event) {
-    store.dispatch("deleteTodo", event)
+    store.dispatch("deleteTodo", event);
   }
 </script>
