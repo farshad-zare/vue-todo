@@ -30,10 +30,10 @@
   }
 
   function handleToggleTodo(event) {
-    console.log(event);
+    store.dispatch("toggleTodoStatus", event);
   }
 
   function handreMoveTodo(event) {
-    console.log(event);
+    store.dispatch("deleteTodo", event)
   }
 </script>

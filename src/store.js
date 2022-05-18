@@ -12,6 +12,16 @@ export default createStore({
     addTask(state, payload) {
       state.todos.push(payload);
     },
+
+    removeTask(state, id) {
+      const tasks = state.todos.filter((todo) => todo.id !== id);
+      state.todos = tasks;
+    },
+
+    toggleTaskStatus(state, id) {
+      const taskID = state.todos.findIndex((todo) => todo.id === id);
+      state.todos[taskID].completed = !state.todos[taskID].completed;
+    },
   },
 
   actions: {
@@ -30,6 +40,35 @@ export default createStore({
       context.commit("addTask", data);
       if (error) {
         console.log(error);
+      }
+    },
+
+    async deleteTodo(context, id) {
+      try {
+        const  data  = await supabase.from("todo").delete().eq("id", id);
+        console.log(data);
+        context.commit("removeTask", id);
+      } catch (error) {
+        console.error("error", error);
+      }
+    },
+
+    async toggleTodoStatus({ state, commit }, id) {
+      const taskID = state.todos.findIndex((todo) => todo.id === id);
+      console.log(id);
+      console.log(state.todos[taskID]);
+      const newVal = !state.todos[taskID].completed;
+
+      const { error } = await supabase
+        .from("todo")
+        .update({ completed: newVal })
+        .eq("id", id)
+        .single();
+      commit("toggleTaskStatus", id);
+      if (error) {
+        alert(error.message);
+        console.error("There was an error updating", error);
+        return;
       }
     },
   },
