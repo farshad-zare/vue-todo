@@ -10,7 +10,6 @@
       :todo="todo"
     />
   </section>
-  <Button label="Warning" class="p-button-outlined p-button-warning" />
 </template>
 
 <script setup>
@@ -18,9 +17,7 @@
   import { onBeforeMount, computed } from "vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
-  import Button from "primevue/button";
-  import "primevue/resources/themes/tailwind-light/theme.css";
-
+  import "primevue/resources/themes/mdc-dark-deeppurple/theme.css";
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
   });
@@ -40,3 +37,26 @@
     store.dispatch("deleteTodo", event);
   }
 </script>
+
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--gray-900);
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+
+  .todos {
+    max-width: 28rem;
+    background-color: var(--gray-800);
+    margin: 0 auto;
+    margin-top: 2rem;
+    padding: 10px;
+  }
+</style>
