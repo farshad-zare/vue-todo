@@ -1,4 +1,5 @@
 <template>
+  <Toast position="top-left" />
   <section class="todos">
     <h2>Tasks</h2>
     <AppInput @newtodo="handleNewTodo" />
@@ -14,22 +15,32 @@
 
 <script setup>
   import { useStore } from "vuex";
+  import { useToast } from "primevue/usetoast";
   import { onBeforeMount, computed } from "vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
   import "primevue/resources/themes/mdc-dark-deeppurple/theme.css";
+  import Toast from "primevue/toast";
+
+  const toast = useToast();
+  const store = useStore();
+  const todos = computed(() => store.state.todos);
+
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
   });
-
-  const store = useStore();
-  const todos = computed(() => store.state.todos);
 
   function handleNewTodo(event) {
     console.log(event);
   }
 
   function handleToggleTodo(event) {
+    toast.add({
+      severity: "info",
+      summary: "toggling",
+      detail: "status is toggling",
+      life: 3000,
+    });
     store.dispatch("toggleTodoStatus", event);
   }
 
