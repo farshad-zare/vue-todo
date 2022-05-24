@@ -2,10 +2,11 @@
   <Toast position="top-left" />
   <section class="todos">
     <h2>Tasks</h2>
+    <p>{{ t("app.hello") }}</p>
     <AppInput @newtodo="handleNewTodo" />
     <AppTodo
       @toggletodo="handleToggleTodo"
-      @removetodo="handreMoveTodo"
+      @removetodo="handleMoveTodo"
       v-for="todo in todos"
       :key="todo.id"
       :todo="todo"
@@ -14,6 +15,7 @@
 </template>
 
 <script setup>
+  import { useI18n } from "vue-i18n";
   import { useStore } from "vuex";
   import { useToast } from "primevue/usetoast";
   import { onBeforeMount, computed } from "vue";
@@ -23,6 +25,7 @@
   import Toast from "primevue/toast";
 
   const toast = useToast();
+  const { t } = useI18n({ useScope: "global" });
   const store = useStore();
   const todos = computed(() => store.state.todos);
 
@@ -44,7 +47,7 @@
     store.dispatch("toggleTodoStatus", event);
   }
 
-  function handreMoveTodo(event) {
+  function handleMoveTodo(event) {
     store.dispatch("deleteTodo", event);
   }
 </script>
