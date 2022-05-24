@@ -1,8 +1,7 @@
 <template>
   <Toast position="top-left" />
   <section class="todos">
-    <h2>Tasks</h2>
-    <p>{{ t("app.hello") }}</p>
+    <h2>{{ t("app.title") }}</h2>
     <AppInput @newtodo="handleNewTodo" />
     <AppTodo
       @toggletodo="handleToggleTodo"
@@ -25,12 +24,15 @@
   import Toast from "primevue/toast";
 
   const toast = useToast();
-  const { t } = useI18n({ useScope: "global" });
+  const { t, locale } = useI18n({ useScope: "global" });
   const store = useStore();
   const todos = computed(() => store.state.todos);
 
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
+    setTimeout(() => {
+      locale.value = "en";
+    }, 2000);
   });
 
   function handleNewTodo(event) {
