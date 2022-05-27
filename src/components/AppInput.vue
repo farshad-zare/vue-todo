@@ -5,12 +5,6 @@
     v-model="newTodo"
     type="text"
   />
-  <InputText
-    placeholder="User Name"
-    class="custom-input"
-    v-model="newTodo"
-    type="text"
-  />
   <Button
     label="Submit"
     @click="handleClick"
@@ -28,6 +22,7 @@
 
   function handleClick() {
     emit("newtodo", newTodo.value);
+    newTodo.value = "";
   }
 </script>
 

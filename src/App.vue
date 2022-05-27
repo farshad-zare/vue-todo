@@ -7,7 +7,7 @@
       @toggletodo="handleToggleTodo"
       @removetodo="handleMoveTodo"
       v-for="todo in todos"
-      :key="todo.id"
+      :key="todo.id ? todo.id : todo.title"
       :todo="todo"
     />
   </section>
@@ -16,14 +16,12 @@
 <script setup>
   import { useI18n } from "vue-i18n";
   import { useStore } from "vuex";
-  import { useToast } from "primevue/usetoast";
   import { onBeforeMount, computed } from "vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
   import "primevue/resources/themes/mdc-dark-deeppurple/theme.css";
   import Toast from "primevue/toast";
 
-  const toast = useToast();
   const { t, locale } = useI18n({ useScope: "global" });
   const store = useStore();
   const todos = computed(() => store.state.todos);
@@ -36,16 +34,10 @@
   });
 
   function handleNewTodo(event) {
-    console.log(event);
+    store.dispatch("addTodo", event);
   }
 
   function handleToggleTodo(event) {
-    toast.add({
-      severity: "info",
-      summary: "toggling",
-      detail: "status is toggling",
-      life: 3000,
-    });
     store.dispatch("toggleTodoStatus", event);
   }
 

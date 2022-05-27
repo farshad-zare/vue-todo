@@ -5,21 +5,32 @@ export default createStore({
   state() {
     return {
       todos: [],
+      notif: {},
     };
   },
 
   mutations: {
-    addTask(state, payload) {
-      state.todos.push(payload);
+    addNotif(state, payload) {
+      state.notif = payload;
     },
 
-    removeTask(state, id) {
-      const tasks = state.todos.filter((todo) => todo.id !== id);
+    addTask(state, payload) {
+      state.todos.unshift(payload);
+    },
+
+    removeTask(state, payload) {
+      const tasks = state.todos.filter((todo) => {
+        if (payload.id) {
+          return todo.id !== payload.id;
+        } else {
+          return todo.title !== payload.title;
+        }
+      });
       state.todos = tasks;
     },
 
-    toggleTaskStatus(state, payload) {
-      state.todos[payload.id].completed = payload.value;
+    toggleTaskStatus(state, taskIndex) {
+      state.todos[taskIndex].completed = !state.todos[taskIndex].completed;
     },
   },
 
@@ -36,27 +47,29 @@ export default createStore({
     },
 
     async addTodo({ commit }, todo) {
-      commit("addTask", todo);
-
+      const newTodo = { title: todo, completed: false };
+      commit("addTask", newTodo);
       try {
-        const { error } = await supabase.from("todo").insert(todo).single();
+        const { error } = await supabase.from("todo").insert(newTodo).single();
         if (error) {
           throw error.message;
         }
       } catch (error) {
         console.log(error);
-        commit("removeTask", todo.id);
+        commit("removeTask", todo.title);
       }
     },
 
     async deleteTodo({ commit }, payload) {
-      commit("removeTask", payload.id);
+      commit("removeTask", payload);
+
+      const removeBy = payload.id ? "id" : "title";
 
       try {
         const { error } = await supabase
           .from("todo")
           .delete()
-          .eq("id", payload.id);
+          .eq(removeBy, payload[removeBy]);
         if (error) {
           throw error.message;
         }
@@ -67,22 +80,26 @@ export default createStore({
     },
 
     async toggleTodoStatus({ state, commit }, payload) {
-      const taskID = state.todos.findIndex((todo) => todo.id === payload.id);
-      const newVal = !state.todos[taskID].completed;
+      const toggleBy = payload.id ? "id" : "title";
+      const taskIndex = state.todos.findIndex(
+        (todo) => todo[toggleBy] === payload[toggleBy]
+      );
 
-      commit("toggleTaskStatus", { id: taskID, value: newVal });
+      const newVal = !state.todos[taskIndex].completed;
+
+      commit("toggleTaskStatus", taskIndex);
 
       try {
         const { error } = await supabase
           .from("todo")
           .update({ completed: newVal })
-          .eq("id", payload.id)
+          .eq(toggleBy, payload[toggleBy])
           .single();
         if (error) {
           throw error.message;
         }
       } catch (error) {
-        commit("toggleTaskStatus", payload.id);
+        commit("toggleTaskStatus", taskIndex);
         console.log(error);
       }
     },
