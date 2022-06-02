@@ -16,21 +16,30 @@
 <script setup>
   import { useI18n } from "vue-i18n";
   import { useStore } from "vuex";
-  import { onBeforeMount, computed } from "vue";
+  import { onBeforeMount, watch, computed } from "vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
   import "primevue/resources/themes/mdc-dark-deeppurple/theme.css";
   import Toast from "primevue/toast";
+  import { useToast } from "primevue/usetoast";
 
   const { t, locale } = useI18n({ useScope: "global" });
   const store = useStore();
+  const notify = useToast();
   const todos = computed(() => store.state.todos);
+  const notif = computed(() => store.state.notif);
 
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
     setTimeout(() => {
       locale.value = "en";
     }, 2000);
+  });
+
+  watch(notif, () => {
+    if (notif.value) {
+      notify.add(notif.value);
+    }
   });
 
   function handleNewTodo(event) {

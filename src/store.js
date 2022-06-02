@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import supabase from "./utils/client";
-
+import I18n from "@/I18n.js";
 export default createStore({
   state() {
     return {
@@ -36,27 +36,53 @@ export default createStore({
 
   actions: {
     async getAllTodos({ commit }) {
-      const { data: todos } = await supabase
-        .from("todo")
-        .select("*")
-        .order("id");
+      try {
+        const { data: todos, error } = await supabase
+          .from("todo")
+          .select("*")
+          .order("id");
 
-      todos.forEach((todo) => {
-        commit("addTask", todo);
-      });
+        if (error) throw error.message;
+
+        todos.forEach((todo) => {
+          commit("addTask", todo);
+        });
+      } catch (error) {
+        commit("addNotif", {
+          severity: "error",
+          summary: I18n.global.t("notifs.getAllTasksErr.summary"),
+          detail: error,
+          life: 3000,
+        });
+      }
     },
 
     async addTodo({ commit }, todo) {
       const newTodo = { title: todo, completed: false };
+
+      commit("addNotif", {
+        severity: "success",
+        summary: I18n.global.t("notifs.add.summary"),
+        detail: I18n.global.t("notifs.add.detail"),
+        life: 3000,
+      });
+
       commit("addTask", newTodo);
+
       try {
         const { error } = await supabase.from("todo").insert(newTodo).single();
         if (error) {
           throw error.message;
         }
       } catch (error) {
-        console.log(error);
-        commit("removeTask", todo.title);
+        commit("addNotif", {
+          severity: "error",
+          summary: I18n.global.t("notifs.addErr.summary"),
+          detail: error,
+          life: 3000,
+        });
+
+        commit("removeTask", newTodo);
       }
     },
 
@@ -64,6 +90,12 @@ export default createStore({
       commit("removeTask", payload);
 
       const removeBy = payload.id ? "id" : "title";
+      commit("addNotif", {
+        severity: "success",
+        summary: I18n.global.t("notifs.remove.summary"),
+        detail: I18n.global.t("notifs.remove.detail"),
+        life: 3000,
+      });
 
       try {
         const { error } = await supabase
@@ -74,13 +106,26 @@ export default createStore({
           throw error.message;
         }
       } catch (error) {
+        commit("addNotif", {
+          severity: "error",
+          summary: I18n.global.t("notifs.removeErr.summary"),
+          detail: error,
+          life: 3000,
+        });
         commit("addTask", payload);
-        console.log(error);
       }
     },
 
     async toggleTodoStatus({ state, commit }, payload) {
       const toggleBy = payload.id ? "id" : "title";
+
+      commit("addNotif", {
+        severity: "success",
+        summary: I18n.global.t("notifs.toggle.summary"),
+        detail: I18n.global.t("notifs.toggle.detail"),
+        life: 3000,
+      });
+
       const taskIndex = state.todos.findIndex(
         (todo) => todo[toggleBy] === payload[toggleBy]
       );
@@ -99,8 +144,13 @@ export default createStore({
           throw error.message;
         }
       } catch (error) {
+        commit("addNotif", {
+          severity: "error",
+          summary: I18n.global.t("notifs.toggleErr.summary"),
+          detail: error,
+          life: 3000,
+        });
         commit("toggleTaskStatus", taskIndex);
-        console.log(error);
       }
     },
   },

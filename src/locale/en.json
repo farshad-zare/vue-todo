@@ -1,5 +1,23 @@
 {
   "app": {
     "title": "hello world"
+  },
+  "notifs": {
+    "getAllTasksErr": { "summary": "Error downloading tasks!" },
+    "toggle": {
+      "summary": "Status Changed!",
+      "detail": "Task status has been changed."
+    },
+    "toggleErr": { "summary": "Can't change status!" },
+    "remove": {
+      "summary": "Task Removed!",
+      "detail": "Task has been removed from the list."
+    },
+    "removeErr": { "summary": "Can't remove status!" },
+    "add": {
+      "summary": "Task Added!",
+      "detail": "New task has been added to the list."
+    },
+    "addErr": { "summary": "Can't add status!" }
   }
 }
