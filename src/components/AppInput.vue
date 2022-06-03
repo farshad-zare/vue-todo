@@ -1,14 +1,14 @@
 <template>
   <div>
     <InputText
-      placeholder="New Todo"
+      :placeholder="t('AppInput.inputPlaceholder')"
       autofocus="true"
       class="custom-input"
       v-model="newTodo"
       type="text"
     />
     <Button
-      label="Submit"
+      :label="t('AppInput.buttonLabel')"
       @click="handleClick"
       class="p-button-outlined p-button-primary"
     />
@@ -20,6 +20,8 @@
   import InputText from "primevue/inputtext";
   import { ref } from "vue";
 
+  import { useI18n } from "vue-i18n";
+  const { t } = useI18n({ useScope: "global" });
   const emit = defineEmits(["newtodo"]);
   const newTodo = ref(null);
 

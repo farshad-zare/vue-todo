@@ -3,6 +3,10 @@
   <section class="todos">
     <h2 class="app-title">{{ t("app.title") }}</h2>
     <AppInput @newtodo="handleNewTodo" />
+    <select name="cars" id="cars">
+      <option value="en">Volvo</option>
+      <option value="fa">Saab</option>
+    </select>
     <AppTodo
       @toggletodo="handleToggleTodo"
       @removetodo="handleMoveTodo"
