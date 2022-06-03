@@ -1,15 +1,18 @@
 <template>
-  <InputText
-    placeholder="New Todo"
-    class="custom-input"
-    v-model="newTodo"
-    type="text"
-  />
-  <Button
-    label="Submit"
-    @click="handleClick"
-    class="p-button-outlined p-button-primary"
-  />
+  <div>
+    <InputText
+      placeholder="New Todo"
+      autofocus="true"
+      class="custom-input"
+      v-model="newTodo"
+      type="text"
+    />
+    <Button
+      label="Submit"
+      @click="handleClick"
+      class="p-button-outlined p-button-primary"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -27,6 +30,9 @@
 </script>
 
 <style>
+  div {
+    width: 100%;
+  }
   .custom-input {
     width: 100%;
     margin-bottom: 10px;

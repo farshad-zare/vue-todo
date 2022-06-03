@@ -1,7 +1,7 @@
 <template>
-  <Toast position="top-left" />
+  <Toast position="top-right" />
   <section class="todos">
-    <h2>{{ t("app.title") }}</h2>
+    <h2 class="app-title">{{ t("app.title") }}</h2>
     <AppInput @newtodo="handleNewTodo" />
     <AppTodo
       @toggletodo="handleToggleTodo"
@@ -20,6 +20,7 @@
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
   import "primevue/resources/themes/mdc-dark-deeppurple/theme.css";
+  import "primeicons/primeicons.css";
   import Toast from "primevue/toast";
   import { useToast } from "primevue/usetoast";
 
@@ -75,5 +76,15 @@
     margin: 0 auto;
     margin-top: 2rem;
     padding: 10px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .app-title {
+    color: var(--pink-200);
+    margin: 0 auto;
+    display: inline;
   }
 </style>
