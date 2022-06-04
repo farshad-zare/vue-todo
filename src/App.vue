@@ -1,7 +1,6 @@
 <template>
   <section class="todos">
-    <h2 class="app-title">{{ t("app.title") }}</h2>
-    <el-button plain> Error </el-button>
+    <AppHeader></AppHeader>
     <AppInput @newtodo="handleNewTodo" />
     <div class="not-done-todos">
       <AppTodo
@@ -27,13 +26,9 @@
 <script setup>
   import { computed, onBeforeMount } from "vue";
   import { useStore } from "vuex";
-  import { useI18n } from "vue-i18n";
-  import { ElButton } from "element-plus";
-
+  import AppHeader from "./components/AppHeader.vue";
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
-
-  const { t, locale } = useI18n({ useScope: "global" });
 
   const store = useStore();
   const donTodos = computed(() => store.getters.doneTodos);
@@ -90,11 +85,5 @@
     background-color: #8bcf75;
     width: 100%;
     margin-top: 5px;
-  }
-
-  .app-title {
-    color: #8bcf75;
-    margin: 0 auto;
-    display: inline;
   }
 </style>

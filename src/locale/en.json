@@ -1,7 +1,5 @@
 {
-  "app": {
-    "title": "Manage Task"
-  },
+  "AppHeaderTitle": "Manage Taskwwwww",
   "AppInput": { "inputPlaceholder": "New Task", "buttonLabel": "Submit" },
   "notifs": {
     "getAllTasksErr": { "title": "Error downloading tasks!" },

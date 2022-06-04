@@ -1,5 +1,26 @@
 {
-  "app": {
-    "hello": "hello world in farsi"
+  "AppHeaderTitle": "مدیریت یادداشت ها",
+  "AppInput": { "inputPlaceholder": "New Task", "buttonLabel": "Submit" },
+  "notifs": {
+    "getAllTasksErr": { "title": "Error downloading tasks!" },
+    "toggle": {
+      "title": "Status Changed!",
+      "message": "Task status has been changed."
+    },
+    "toggleErr": { "title": "Can't change status!" },
+    "remove": {
+      "title": "Task Removed!",
+      "message": "Task has been removed from the list."
+    },
+    "removeErr": { "title": "Can't remove status!" },
+    "add": {
+      "title": "Task Added!",
+      "message": "New task has been added to the list."
+    },
+    "addEmpty": {
+      "title": "Can't add new task!",
+      "message": "Please enter somthing in input field."
+    },
+    "addErr": { "title": "Can't add new task!" }
   }
 }
