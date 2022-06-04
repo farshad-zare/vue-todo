@@ -15,10 +15,10 @@
 </template>
 
 <script setup>
-  import { ElInput, ElButton } from "element-plus";
   import { ref } from "vue";
-
   import { useI18n } from "vue-i18n";
+  import { ElInput, ElButton } from "element-plus";
+
   const { t } = useI18n({ useScope: "global" });
   const emit = defineEmits(["newtodo"]);
   const newTodo = ref(null);

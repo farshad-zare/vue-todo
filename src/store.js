@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
-import supabase from "./utils/client";
 import I18n from "@/I18n.js";
 import { ElNotification } from "element-plus";
+import supabase from "./utils/client";
 
 export default createStore({
   state() {

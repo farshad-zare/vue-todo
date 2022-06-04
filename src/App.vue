@@ -14,23 +14,17 @@
 </template>
 
 <script setup>
-  import { useI18n } from "vue-i18n";
+  import { computed } from "vue";
   import { useStore } from "vuex";
-  import { onBeforeMount, computed } from "vue";
+  import { useI18n } from "vue-i18n";
+  import { ElButton } from "element-plus";
+
   import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
-  import { ElButton } from "element-plus";
 
   const { t, locale } = useI18n({ useScope: "global" });
   const store = useStore();
   const todos = computed(() => store.state.todos);
-
-  onBeforeMount(async () => {
-    store.dispatch("getAllTodos");
-    setTimeout(() => {
-      locale.value = "en";
-    }, 2000);
-  });
 
   function handleNewTodo(event) {
     store.dispatch("addTodo", event);
