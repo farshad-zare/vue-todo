@@ -11,4 +11,12 @@ module.exports = {
   env: {
     "vue/setup-compiler-macros": true,
   },
+  overrides: [
+    {
+      files: ["*.js", "*.spec.js", "*.vue"],
+      rules: {
+        "no-unused-vars": "off",
+      },
+    },
+  ],
 };
