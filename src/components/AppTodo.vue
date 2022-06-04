@@ -1,21 +1,24 @@
 <template>
   <div :class="{ completed: todo.completed }">
     <h2>{{ todo.title }}</h2>
-    <Button
-      class="p-button-danger p-button-rounded"
-      icon="pi pi-trash"
+    <ElButton
+      type="danger"
+      circle
+      :icon="Delete"
       @click="emits('removetodo', todo)"
     />
-    <Button
+    <ElButton
+      circle
       @click="emits('toggletodo', todo)"
-      class="p-button-rounded p-button-success"
-      :icon="todo.completed ? `pi pi-times` : `pi pi-check`"
+      :icon="todo.completed ? CloseBold : Check"
+      :type="todo.completed ? 'warning' : 'success'"
     />
   </div>
 </template>
 
 <script setup>
-  import Button from "primevue/button";
+  import { ElButton } from "element-plus";
+  import { Delete, Check, CloseBold } from "@element-plus/icons-vue";
 
   const props = defineProps({
     todo: Object,
@@ -31,10 +34,6 @@
     padding: 5px;
     display: flex;
     align-items: center;
-  }
-
-  .p-button-danger {
-    margin-left: auto;
   }
 
   .completed {
@@ -57,5 +56,9 @@
 
   button:hover {
     cursor: pointer;
+  }
+
+  button:first-of-type {
+    margin-left: auto;
   }
 </style>
