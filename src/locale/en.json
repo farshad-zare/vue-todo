@@ -19,6 +19,10 @@
       "title": "Task Added!",
       "message": "New task has been added to the list."
     },
-    "addErr": { "title": "Can't add status!" }
+    "addEmpty": {
+      "title": "Can't add new task!",
+      "message": "Please enter somthing in input field."
+    },
+    "addErr": { "title": "Can't add new task!" }
   }
 }

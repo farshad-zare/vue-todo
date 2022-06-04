@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ completed: todo.completed }">
+  <div class="todo-item">
     <h2>{{ todo.title }}</h2>
     <ElButton
       type="danger"
@@ -27,18 +27,14 @@
 </script>
 
 <style scoped>
-  div {
+  .todo-item {
     margin: 5px;
-    background-color: #eab9cf;
     border-radius: 5px;
     padding: 5px;
     display: flex;
     align-items: center;
-  }
 
-  .completed {
-    background-color: #8bcf75;
-    color: var(--text-color);
+    border: 1px solid white;
   }
 
   h2 {

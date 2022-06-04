@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="app-input">
     <el-input
       :placeholder="t('AppInput.inputPlaceholder')"
       autofocus="true"
-      class="custom-input"
+      class="input-field"
       v-model="newTodo"
       type="text"
     />
 
-    <el-button @click="handleClick">
+    <el-button type="primary" @click="handleClick">
       {{ t("AppInput.buttonLabel") }}
     </el-button>
   </div>
@@ -29,12 +29,12 @@
   }
 </script>
 
-<style>
-  div {
+<style scoped>
+  .app-input {
     width: 100%;
   }
-  .custom-input {
-    width: 100%;
-    margin-bottom: 10px;
+
+  .input-field {
+    margin-bottom: 5px;
   }
 </style>

@@ -55,7 +55,18 @@ export default createStore({
     },
 
     async addTodo({ commit }, todo) {
+      if (!todo) {
+        ElNotification({
+          type: "error",
+          title: I18n.global.t("notifs.addEmpty.title"),
+          message: I18n.global.t("notifs.addEmpty.message"),
+          duration: 3000,
+        });
+        return;
+      }
+
       const newTodo = { title: todo, completed: false };
+      commit("addTask", newTodo);
 
       ElNotification({
         type: "success",
@@ -63,8 +74,6 @@ export default createStore({
         message: I18n.global.t("notifs.add.message"),
         duration: 3000,
       });
-
-      commit("addTask", newTodo);
 
       try {
         const { error } = await supabase.from("todo").insert(newTodo).single();
@@ -149,6 +158,20 @@ export default createStore({
         });
         commit("toggleTaskStatus", taskIndex);
       }
+    },
+  },
+
+  getters: {
+    doneTodos(state) {
+      return state.todos.filter((todo) => {
+        return todo.completed === true;
+      });
+    },
+
+    notDoneTodos(state) {
+      return state.todos.filter((todo) => {
+        return todo.completed === false;
+      });
     },
   },
 });
