@@ -1,23 +1,21 @@
 <template>
   <div>
-    <InputText
+    <el-input
       :placeholder="t('AppInput.inputPlaceholder')"
       autofocus="true"
       class="custom-input"
       v-model="newTodo"
       type="text"
     />
-    <Button
-      :label="t('AppInput.buttonLabel')"
-      @click="handleClick"
-      class="p-button-outlined p-button-primary"
-    />
+
+    <el-button @click="handleClick">
+      {{ t("AppInput.buttonLabel") }}
+    </el-button>
   </div>
 </template>
 
 <script setup>
-  import Button from "primevue/button";
-  import InputText from "primevue/inputtext";
+  import { ElInput, ElButton } from "element-plus";
   import { ref } from "vue";
 
   import { useI18n } from "vue-i18n";

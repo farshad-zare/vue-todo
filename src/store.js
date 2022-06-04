@@ -1,19 +1,16 @@
 import { createStore } from "vuex";
 import supabase from "./utils/client";
 import I18n from "@/I18n.js";
+import { ElNotification } from "element-plus";
+
 export default createStore({
   state() {
     return {
       todos: [],
-      notif: {},
     };
   },
 
   mutations: {
-    addNotif(state, payload) {
-      state.notif = payload;
-    },
-
     addTask(state, payload) {
       state.todos.unshift(payload);
     },
@@ -48,11 +45,11 @@ export default createStore({
           commit("addTask", todo);
         });
       } catch (error) {
-        commit("addNotif", {
-          severity: "error",
-          summary: I18n.global.t("notifs.getAllTasksErr.summary"),
-          detail: error,
-          life: 3000,
+        ElNotification({
+          type: "error",
+          title: I18n.global.t("notifs.getAllTasksErr.title"),
+          message: error,
+          duration: 3000,
         });
       }
     },
@@ -60,11 +57,11 @@ export default createStore({
     async addTodo({ commit }, todo) {
       const newTodo = { title: todo, completed: false };
 
-      commit("addNotif", {
-        severity: "success",
-        summary: I18n.global.t("notifs.add.summary"),
-        detail: I18n.global.t("notifs.add.detail"),
-        life: 3000,
+      ElNotification({
+        type: "success",
+        title: I18n.global.t("notifs.add.title"),
+        message: I18n.global.t("notifs.add.message"),
+        duration: 3000,
       });
 
       commit("addTask", newTodo);
@@ -75,11 +72,11 @@ export default createStore({
           throw error.message;
         }
       } catch (error) {
-        commit("addNotif", {
-          severity: "error",
-          summary: I18n.global.t("notifs.addErr.summary"),
-          detail: error,
-          life: 3000,
+        ElNotification({
+          type: "error",
+          title: I18n.global.t("notifs.addErr.title"),
+          message: error,
+          duration: 3000,
         });
 
         commit("removeTask", newTodo);
@@ -90,11 +87,11 @@ export default createStore({
       commit("removeTask", payload);
 
       const removeBy = payload.id ? "id" : "title";
-      commit("addNotif", {
-        severity: "success",
-        summary: I18n.global.t("notifs.remove.summary"),
-        detail: I18n.global.t("notifs.remove.detail"),
-        life: 3000,
+      ElNotification({
+        type: "success",
+        title: I18n.global.t("notifs.remove.title"),
+        message: I18n.global.t("notifs.remove.message"),
+        duration: 3000,
       });
 
       try {
@@ -106,11 +103,11 @@ export default createStore({
           throw error.message;
         }
       } catch (error) {
-        commit("addNotif", {
-          severity: "error",
-          summary: I18n.global.t("notifs.removeErr.summary"),
-          detail: error,
-          life: 3000,
+        ElNotification({
+          type: "error",
+          title: I18n.global.t("notifs.removeErr.title"),
+          message: error,
+          duration: 3000,
         });
         commit("addTask", payload);
       }
@@ -119,11 +116,11 @@ export default createStore({
     async toggleTodoStatus({ state, commit }, payload) {
       const toggleBy = payload.id ? "id" : "title";
 
-      commit("addNotif", {
-        severity: "success",
-        summary: I18n.global.t("notifs.toggle.summary"),
-        detail: I18n.global.t("notifs.toggle.detail"),
-        life: 3000,
+      ElNotification({
+        type: "success",
+        title: I18n.global.t("notifs.toggle.title"),
+        message: I18n.global.t("notifs.toggle.message"),
+        duration: 3000,
       });
 
       const taskIndex = state.todos.findIndex(
@@ -144,11 +141,11 @@ export default createStore({
           throw error.message;
         }
       } catch (error) {
-        commit("addNotif", {
-          severity: "error",
-          summary: I18n.global.t("notifs.toggleErr.summary"),
-          detail: error,
-          life: 3000,
+        ElNotification({
+          type: "error",
+          title: I18n.global.t("notifs.toggleErr.title"),
+          message: error,
+          duration: 3000,
         });
         commit("toggleTaskStatus", taskIndex);
       }

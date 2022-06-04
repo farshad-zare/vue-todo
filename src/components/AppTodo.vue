@@ -29,7 +29,7 @@
 <style scoped>
   div {
     margin: 5px;
-    background-color: var(--red-400);
+    background-color: #eab9cf;
     border-radius: 5px;
     padding: 5px;
     display: flex;
@@ -37,8 +37,7 @@
   }
 
   .completed {
-    background-color: var(--bluegray-900);
-    opacity: 0.5;
+    background-color: #8bcf75;
     color: var(--text-color);
   }
 
@@ -51,7 +50,6 @@
 
   button {
     margin-left: 5px;
-    opacity: 1;
   }
 
   button:hover {

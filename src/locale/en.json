@@ -4,21 +4,21 @@
   },
   "AppInput": { "inputPlaceholder": "New Task", "buttonLabel": "Submit" },
   "notifs": {
-    "getAllTasksErr": { "summary": "Error downloading tasks!" },
+    "getAllTasksErr": { "title": "Error downloading tasks!" },
     "toggle": {
-      "summary": "Status Changed!",
-      "detail": "Task status has been changed."
+      "title": "Status Changed!",
+      "message": "Task status has been changed."
     },
-    "toggleErr": { "summary": "Can't change status!" },
+    "toggleErr": { "title": "Can't change status!" },
     "remove": {
-      "summary": "Task Removed!",
-      "detail": "Task has been removed from the list."
+      "title": "Task Removed!",
+      "message": "Task has been removed from the list."
     },
-    "removeErr": { "summary": "Can't remove status!" },
+    "removeErr": { "title": "Can't remove status!" },
     "add": {
-      "summary": "Task Added!",
-      "detail": "New task has been added to the list."
+      "title": "Task Added!",
+      "message": "New task has been added to the list."
     },
-    "addErr": { "summary": "Can't add status!" }
+    "addErr": { "title": "Can't add status!" }
   }
 }

@@ -1,8 +1,8 @@
 <template>
-  <Toast position="top-right" />
   <section class="todos">
     <h2 class="app-title">{{ t("app.title") }}</h2>
-    <!-- <AppInput @newtodo="handleNewTodo" /> -->
+    <el-button plain> Error </el-button>
+    <AppInput @newtodo="handleNewTodo" />
     <AppTodo
       @toggletodo="handleToggleTodo"
       @removetodo="handleMoveTodo"
@@ -17,13 +17,13 @@
   import { useI18n } from "vue-i18n";
   import { useStore } from "vuex";
   import { onBeforeMount, computed } from "vue";
-  // import AppInput from "./components/AppInput.vue";
+  import AppInput from "./components/AppInput.vue";
   import AppTodo from "./components/AppTodo.vue";
+  import { ElButton } from "element-plus";
 
   const { t, locale } = useI18n({ useScope: "global" });
   const store = useStore();
   const todos = computed(() => store.state.todos);
-  // const notif = computed(() => store.state.notif);
 
   onBeforeMount(async () => {
     store.dispatch("getAllTodos");
@@ -32,23 +32,17 @@
     }, 2000);
   });
 
-  // watch(notif, () => {
-  //   if (notif.value) {
-  //     notify.add(notif.value);
-  //   }
-  // });
+  function handleNewTodo(event) {
+    store.dispatch("addTodo", event);
+  }
 
-  // function handleNewTodo(event) {
-  //   store.dispatch("addTodo", event);
-  // }
+  function handleToggleTodo(event) {
+    store.dispatch("toggleTodoStatus", event);
+  }
 
-  // function handleToggleTodo(event) {
-  //   store.dispatch("toggleTodoStatus", event);
-  // }
-
-  // function handleMoveTodo(event) {
-  //   store.dispatch("deleteTodo", event);
-  // }
+  function handleMoveTodo(event) {
+    store.dispatch("deleteTodo", event);
+  }
 </script>
 
 <style>
