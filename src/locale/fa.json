@@ -1,26 +1,29 @@
 {
-  "AppHeaderTitle": "مدیریت یادداشت ها",
-  "AppInput": { "inputPlaceholder": "New Task", "buttonLabel": "Submit" },
+  "AppHeader": { "Title": "مدیریت یادداشت ها" },
+  "AppInput": {
+    "inputPlaceholder": "یادداشت جدید",
+    "buttonLabel": "اضافه کردن"
+  },
   "notifs": {
-    "getAllTasksErr": { "title": "Error downloading tasks!" },
+    "getAllTasksErr": { "title": "خطا در دریافت یادداشت ها" },
     "toggle": {
-      "title": "Status Changed!",
-      "message": "Task status has been changed."
+      "title": "تغییر وضعیت",
+      "message": "وضعیت یادداشت تغییر پیدا کرد"
     },
-    "toggleErr": { "title": "Can't change status!" },
+    "toggleErr": { "title": "خطا در تغییر وضعیت یادداشت" },
     "remove": {
-      "title": "Task Removed!",
-      "message": "Task has been removed from the list."
+      "title": "حذف یادداشت",
+      "message": "یادداشت با موفقیت حذف شد"
     },
-    "removeErr": { "title": "Can't remove status!" },
+    "removeErr": { "title": "خطا درحذف یاداشت" },
     "add": {
-      "title": "Task Added!",
-      "message": "New task has been added to the list."
+      "title": "اضافه کردن یادداشت",
+      "message": "یادداشت جدید اضافه شد"
     },
     "addEmpty": {
-      "title": "Can't add new task!",
-      "message": "Please enter somthing in input field."
+      "title": "خطا در اضافه کردن یادداشت",
+      "message": "لطفا متن یاداشت را وارد کنید"
     },
-    "addErr": { "title": "Can't add new task!" }
+    "addErr": { "title": "خطا در اضافه کردن یادداشت" }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "AppHeaderTitle": "Manage Taskwwwww",
+  "AppHeader": { "Title": "Manage Tasks" },
   "AppInput": { "inputPlaceholder": "New Task", "buttonLabel": "Submit" },
   "notifs": {
     "getAllTasksErr": { "title": "Error downloading tasks!" },
@@ -12,7 +12,7 @@
       "title": "Task Removed!",
       "message": "Task has been removed from the list."
     },
-    "removeErr": { "title": "Can't remove status!" },
+    "removeErr": { "title": "Can't remove task!" },
     "add": {
       "title": "Task Added!",
       "message": "New task has been added to the list."

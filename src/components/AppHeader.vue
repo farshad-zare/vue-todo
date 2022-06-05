@@ -1,6 +1,6 @@
 <template>
   <div class="appheader">
-    <h2 class="app-title">{{ t("AppHeaderTitle") }}</h2>
+    <h2 class="app-title">{{ t("AppHeader.Title") }}</h2>
     <el-popover v-model:visible="openLangSelect" :width="160">
       <div style="text-align: right; margin: 0">
         <el-button size="small" type="primary" @click="changeLangTo('en')">
